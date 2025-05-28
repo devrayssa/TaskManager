@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class TaskManager {
-    private ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
@@ -31,6 +31,16 @@ public class TaskManager {
             System.out.println("Tarefa marcada como concluída.");
         } else {
             System.out.println("Índice inválido.");
+        }
+    }
+    public static void editTask(int index, String newTitle, String newDescription) {
+        if (index >= 0 & index < tasks.size()) {
+           Task task = tasks.get(index);
+           task.setTitle(newTitle);
+           task.setDescription(newDescription);
+           System.out.println(" Tarefa Atualizada com sucesso. ");
+        } else  {
+            System.out.println("Indice Invalido");
         }
     }
 }

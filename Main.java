@@ -9,6 +9,7 @@ public class Main {
             System.out.println("1. Adicionar tarefa");
             System.out.println("2. Listar tarefas");
             System.out.println("3. Marcar tarefa como concluida");
+            System.out.println("4. Editar Tarefa");
             System.out.println("0. Sair");
             System.out.print("Escolha: ");
             int opcao = Integer.parseInt(scanner.nextLine());
@@ -33,14 +34,26 @@ public class Main {
                     manager.markTaskAsCompleted(numero - 1); // índice começa em 0
                     break;
 
+                case 4:
+                    System.out.print("Digite o indice da tarefa que deseja editar: ");
+                    int editIndex = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.print("Novo titulo: ");
+                    String newTitle = scanner.nextLine();
+
+                    System.out.print("Nova Descrição:");
+                    String newDescription =scanner.nextLine();
+
+                    TaskManager.editTask(editIndex -1, newTitle, newDescription);
+                    break;
+
                 case 0:
                     System.out.println("Encerrando o programa.");
                     System.exit(0);
                     break;
 
-                default:
-                    System.out.println("Opção inválida.");
-            }
+                default: System.out.println("Opção inválida.");   }
         }
     }
 }
