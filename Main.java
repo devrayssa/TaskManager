@@ -1,59 +1,135 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private static TaskManager manager = new TaskManager();
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskManager manager = new TaskManager();
+        int opcao;
 
-        while (true) {
-            System.out.println("1. Adicionar tarefa");
-            System.out.println("2. Listar tarefas");
-            System.out.println("3. Marcar tarefa como concluida");
-            System.out.println("4. Editar Tarefa");
-            System.out.println("0. Sair");
-            System.out.print("Escolha: ");
-            int opcao = Integer.parseInt(scanner.nextLine());
+        do {
+            exibirMenu();
+            opcao = lerOpcaoMenu();
+            executarOpcao(opcao);
+        } while (opcao != 0);
 
-            switch (opcao) {
-                case 1:
-                    System.out.print("Título: ");
-                    String titulo = scanner.nextLine();
-                    System.out.print("Descrição: ");
-                    String descricao = scanner.nextLine();
-                    manager.addTask(new Task(titulo, descricao));
-                    break;
+        scanner.close();
+        System.out.println("Programa encerrado. Até logo!");
+    }
 
-                case 2:
-                    manager.listTasks();
-                    break;
+    // Exibe o menu principal
+    private static void exibirMenu() {
+        System.out.println("\n=== Gerenciador de Tarefas ===");
+        System.out.println("1. Adicionar tarefa");
+        System.out.println("2. Listar tarefas");
+        System.out.println("3. Marcar tarefa como concluída");
+        System.out.println("4. Editar tarefa");
+        System.out.println("5. Remover tarefa");
+        System.out.println("0. Sair");
+        System.out.print("Escolha uma opção: ");
+    }
 
-                case 3:
-                    manager.listTasks();
-                    System.out.print("Digite o número da tarefa para marcar como concluída: ");
-                    int numero = Integer.parseInt(scanner.nextLine());
-                    manager.markTaskAsCompleted(numero - 1); // índice começa em 0
-                    break;
+    // Lê a opção do menu com validação
+    private static int lerOpcaoMenu() {
+        try {
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+            return opcao;
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Digite um número válido!");
+            scanner.nextLine(); // Limpar entrada inválida
+            return -1; // Retorna um valor inválido para ser tratado
+        }
+    }
 
-                case 4:
-                    System.out.print("Digite o indice da tarefa que deseja editar: ");
-                    int editIndex = scanner.nextInt();
-                    scanner.nextLine();
+    // Executa a opção escolhida pelo usuário
+    private static void executarOpcao(int opcao) {
+        switch (opcao) {
+            case 1:
+                adicionarTarefa();
+                break;
+            case 2:
+                manager.listTasks();
+                break;
+            case 3:
+                marcarTarefaConcluida();
+                break;
+            case 4:
+                editarTarefa();
+                break;
+            case 5:
+                removerTarefa();
+                break;
+            case 0:
+                // Sair é tratado no loop do main
+                break;
+            default:
+                System.out.println("Opção inválida! Tente novamente.");
+        }
+    }
 
-                    System.out.print("Novo titulo: ");
-                    String newTitle = scanner.nextLine();
+    // Adiciona uma nova tarefa
+    private static void adicionarTarefa() {
+        System.out.print("Título: ");
+        String title = scanner.nextLine();
+        System.out.print("Descrição: ");
+        String description = scanner.nextLine();
+        try {
+            manager.addTask(title, description);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
 
-                    System.out.print("Nova Descrição:");
-                    String newDescription =scanner.nextLine();
+    private static void marcarTarefaConcluida() {
+        if (manager.hasTasks()) {
+            manager.listTasks();
+            System.out.print("Digite o número da tarefa para marcar como concluída: ");
+            try {
+                int index = Integer.parseInt(scanner.nextLine()) - 1;
+                manager.markTaskAsCompleted(index);
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: Digite um número válido!");
+            }
+        } else {
+            System.out.println("Nenhuma tarefa cadastrada.");
+        }
+    }
 
-                    TaskManager.editTask(editIndex -1, newTitle, newDescription);
-                    break;
+    private static void editarTarefa() {
+        if (manager.hasTasks()) {
+            manager.listTasks();
+            System.out.print("Digite o número da tarefa para editar: ");
+            try {
+                int index = Integer.parseInt(scanner.nextLine()) - 1;
+                System.out.print("Novo título: ");
+                String newTitle = scanner.nextLine();
+                System.out.print("Nova descrição: ");
+                String newDescription = scanner.nextLine();
+                manager.editTask(index, newTitle, newDescription);
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: Digite um número válido!");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Nenhuma tarefa cadastrada.");
+        }
+    }
 
-                case 0:
-                    System.out.println("Encerrando o programa.");
-                    System.exit(0);
-                    break;
-
-                default: System.out.println("Opção inválida.");   }
+    private static void removerTarefa() {
+        if (manager.hasTasks()) {
+            manager.listTasks();
+            System.out.print("Digite o número da tarefa para remover: ");
+            try {
+                int index = Integer.parseInt(scanner.nextLine()) - 1;
+                manager.removeTask(index);
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: Digite um número válido!");
+            }
+        } else {
+            System.out.println("Nenhuma tarefa cadastrada.");
         }
     }
 }
