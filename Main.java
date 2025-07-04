@@ -11,8 +11,10 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("=== BEM-VINDO AO TASK MANAGER ===\n");
 
-        // Adiciona algumas tarefas de exemplo
-        addSampleTasks();
+        // Adiciona algumas tarefas de exemplo apenas se não houver tarefas carregadas
+        if (taskManager.getTotalTasks() == 0) {
+            addSampleTasks();
+        }
 
         // Menu principal
         while (true) {
@@ -39,6 +41,8 @@ public class Main {
                     showStatistics();
                     break;
                 case 0:
+                    System.out.println("💾 Salvando tarefas...");
+                    taskManager.saveTasksManually();
                     System.out.println("Obrigado por usar o Task Manager!");
                     System.exit(0);
                     break;
@@ -59,7 +63,7 @@ public class Main {
         System.out.println("4. Marcar tarefa como concluída");
         System.out.println("5. Remover tarefa");
         System.out.println("6. Estatísticas");
-        System.out.println("0. Sair");
+        System.out.println("0. Salvar e sair");
         System.out.print("Escolha uma opção: ");
     }
 
@@ -88,9 +92,19 @@ public class Main {
             return;
         }
 
-        System.out.print("Digite o título da tarefa a ser concluída: ");
-        String title = scanner.nextLine();
-        taskManager.completeTask(title);
+        System.out.println("\n💡 Você pode marcar uma tarefa como concluída de duas formas:");
+        System.out.println("   - Digite o NÚMERO da tarefa (ex: 1, 2, 3...)");
+        System.out.println("   - Digite o TÍTULO completo da tarefa");
+        System.out.print("🔸 Digite o número ou título da tarefa: ");
+
+        String input = scanner.nextLine();
+
+        if (input.trim().isEmpty()) {
+            System.out.println("❌ Entrada inválida!");
+            return;
+        }
+
+        taskManager.completeTaskByNumberOrTitle(input);
     }
 
     private static void removeTask() {
@@ -117,6 +131,7 @@ public class Main {
     }
 
     private static void addSampleTasks() {
+        System.out.println("🎯 Adicionando tarefas de exemplo...");
         taskManager.addTask("Estudar Java", "Revisar conceitos de POO e estruturas de dados");
         taskManager.addTask("Fazer exercícios", "Completar lista de exercícios de programação");
         taskManager.addTask("Ler documentação", "Ler documentação oficial do Spring Boot");
@@ -124,6 +139,6 @@ public class Main {
         // Marca uma tarefa como concluída para demonstração
         taskManager.completeTask("Estudar Java");
 
-        System.out.println("Tarefas de exemplo adicionadas!");
+        System.out.println("✅ Tarefas de exemplo adicionadas!");
     }
 }
