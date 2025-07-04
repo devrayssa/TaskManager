@@ -24,9 +24,11 @@ Este projeto foi feito para fins de estudo e prática com:
 - Git e versionamento de código
 
 ## Fluxograma do Sistema
-flowchart TD
-A[Iniciar Sistema] --> B[Menu Principal]
 
+```mermaid
+flowchart TD
+    A[Iniciar Sistema] --> B[Menu Principal]
+    
     B --> C[Criar Tarefa]
     B --> D[Listar Tarefas]
     B --> E[Atualizar Tarefa]
@@ -39,60 +41,35 @@ A[Iniciar Sistema] --> B[Menu Principal]
     J -->|Não| K[Exibir Erro]
     J -->|Sim| L[Salvar Tarefa]
     K --> B
-    L --> M[Confirmar Criação]
-    M --> B
+    L --> B
     
     D --> N[Carregar Lista]
-    N --> O[Exibir Tarefas]
-    O --> B
+    N --> B
     
     E --> P[Selecionar Tarefa]
     P --> Q{Tarefa Existe?}
-    Q -->|Não| R[Tarefa Não Encontrada]
+    Q -->|Não| R[Erro]
     Q -->|Sim| S[Editar Campos]
     R --> B
     S --> T[Validar Alterações]
-    T --> U{Alterações Válidas?}
-    U -->|Não| V[Erro de Validação]
-    U -->|Sim| W[Atualizar Registro]
-    V --> S
-    W --> X[Confirmar Atualização]
-    X --> B
+    T --> U{Válidas?}
+    U -->|Não| S
+    U -->|Sim| W[Atualizar]
+    W --> B
     
     F --> Y[Selecionar Tarefa]
-    Y --> Z{Tarefa Existe?}
-    Z -->|Não| AA[Tarefa Não Encontrada]
+    Y --> Z{Existe?}
+    Z -->|Não| B
     Z -->|Sim| BB[Confirmar Exclusão]
-    AA --> B
     BB --> CC{Confirmar?}
     CC -->|Não| B
-    CC -->|Sim| DD[Remover Tarefa]
-    DD --> EE[Confirmar Remoção]
-    EE --> B
+    CC -->|Sim| DD[Remover]
+    DD --> B
     
-    G --> FF[Inserir Critério]
-    FF --> GG[Executar Busca]
-    GG --> HH[Exibir Resultados]
-    HH --> B
+    G --> FF[Buscar]
+    FF --> B
     
-    H --> II[Finalizar Sistema]
+    H --> II[Finalizar]
     
-    style A fill:#e3f2fd
-    style II fill:#ffebee
-    style B fill:#f3e5f5
-    style K fill:#fff3e0
-    style R fill:#fff3e0
-    style V fill:#fff3e0
-    style AA fill:#fff3e0
+  
 
-
-
-
-## 🧑‍💻 Autor
-
-Feito com 💜 por [Rayssa Inocencio](https://www.linkedin.com/in/rayssa-souza-inocencio-9bb059303/)  
-🔗 Repositório: [github.com/devrayssa/TaskManager](https://github.com/devrayssa/TaskManager)
-
----
-
-> "Cada linha de código é um passo mais perto do futuro que eu quero construir."
