@@ -1,12 +1,14 @@
 # 📝 TaskManager - Gerenciador de Tarefas em Java 
 
-Um projeto simples e funcional de terminal feito em Java puro para gerenciar tarefas do dia a dia. Você pode adicionar, listar, marcar como concluída e remover tarefas — tudo direto do terminal.
+Um projeto simples e funcional de terminal feito em Java puro para gerenciar tarefas do dia a dia. Você pode adicionar, listar, marcar como concluída e remover tarefas — tudo direto do terminal. Futuramente vai ter uma aplicação dele.
 
 ## 🚀 Funcionalidades
 
 - ✅ Adicionar tarefas
 - 📋 Listar tarefas pendentes e concluídas
 - ✏️ Marcar tarefas como concluídas
+- Listar todas as tarefas.
+- Estaticas das tarefas, como mostrar a porcentagem de cada tarefa.
 - ❌ Remover tarefas
 
 ## 🛠️ Tecnologias usadas

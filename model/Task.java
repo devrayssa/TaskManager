@@ -10,7 +10,7 @@ public class Task {
     private String createdAt;
     private String completedAt;
 
-    // Construtor que inicializa uma tarefa com título e descrição
+    // inicializa uma tarefa com título e descrição
     public Task(String title, String description) {
         // Validação para evitar título ou descrição vazios
         if (title == null || title.trim().isEmpty()) {
