@@ -113,7 +113,10 @@ public class Main {
             return;
         }
 
-        System.out.print("Digite o título da tarefa a ser removida: ");
+        System.out.println("\n💡 Você pode excluir de duas formas:");
+        System.out.println("   - Digite o NÚMERO da tarefa (ex: 1, 2, 3...)");
+        System.out.println("   - Digite o TÍTULO completo da tarefa");
+        System.out.print("🔸 Digite o número ou título da tarefa: ");
         String title = scanner.nextLine();
         taskManager.removeTask(title);
     }
