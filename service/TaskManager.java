@@ -37,28 +37,71 @@ public class TaskManager {
         }
     }
 
-    // Remove uma tarefa pelo título
-    public boolean removeTask(String title) {
-        Task taskToRemove = findTaskByTitle(title);
-        if (taskToRemove != null) {
+    // Adicione estes prints temporários no seu TaskManager:
+
+    public boolean removeTask(String input) {
+
+
+        // Tenta primeiro como número
+        try {
+            int taskNumber = Integer.parseInt(input.trim());
+
+            return removeTaskByNumber(taskNumber);
+        } catch (NumberFormatException e) {
+
+            // Se não é número, tenta como título
+            return removeTaskByTitle(input);
+        }
+    }
+
+    public boolean removeTaskByNumber(int taskNumber) {
+
+
+        if (taskNumber >= 1 && taskNumber <= tasks.size()) {
+            Task taskToRemove = tasks.get(taskNumber - 1);
+            System.out.println("🔍 DEBUG - Tarefa encontrada: " + taskToRemove.getTitle());
             tasks.remove(taskToRemove);
-            System.out.println("Tarefa removida: " + title);
-            saveTasks(); // Salva automaticamente
+            System.out.println("Tarefa removida: " + taskToRemove.getTitle());
+            saveTasks();
             return true;
+        }
+        System.out.println("Número de tarefa inválido: " + taskNumber);
+        return false;
+    }
+
+    public boolean removeTaskByTitle(String title) {
+
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+
+
+            if (task.getTitle().equalsIgnoreCase(title.trim())) {
+                tasks.remove(i);
+                System.out.println("Tarefa removida: " + task.getTitle());
+                saveTasks();
+                return true;
+            }
         }
         System.out.println("Tarefa não encontrada: " + title);
         return false;
     }
 
-    // Marca uma tarefa como concluída pelo título
     public boolean completeTask(String title) {
-        Task task = findTaskByTitle(title);
-        if (task != null) {
-            task.markAsCompleted();
-            System.out.println("Tarefa marcada como concluída: " + title);
-            saveTasks(); // Salva automaticamente
-            return true;
+        for (Task task : tasks) {
+            if (task.getTitle().equalsIgnoreCase(title.trim())) {
+                if (task.isCompleted()) {
+                    System.out.println("A tarefa '" + task.getTitle() + "' já está concluída!");
+                    return false;
+                }
+
+                task.markAsCompleted();
+                System.out.println("Tarefa marcada como concluída: " + task.getTitle());
+                saveTasks(); // Salva automaticamente
+                return true;
+            }
         }
+
         System.out.println("Tarefa não encontrada: " + title);
         return false;
     }

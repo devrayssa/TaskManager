@@ -1,0 +1,3 @@
+Estudar Java|Revisar conceitos de POO e estruturas de dados|true|2025-08-08T21:51:35.3542362|2025-08-08T21:51:35.4481833
+Fazer exercícios|Completar lista de exercícios de programação|false|2025-08-08T21:51:35.4361897|null
+Ler documentação|Ler documentação oficial do Spring Boot|false|2025-08-08T21:51:35.4441851|null

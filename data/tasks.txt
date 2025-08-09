@@ -1,0 +1,2 @@
+Fazer exercícios|Completar lista de exercícios de programação|false|2025-08-08T21:51:35.4361897|null
+Ler documentação|Ler documentação oficial do Spring Boot|false|2025-08-08T21:51:35.4441851|null
